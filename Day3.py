@@ -1,12 +1,20 @@
 import numpy as np
 import parse
 
-SIZE = 1000
+fab = np.zeros((1000, 1000))
+pattern = '''#{id:d} @ {fromLeft:d},{fromTop:d}: {width:d}x{height:d}\n'''
 
-claim = [open("input3.txt").read().splitlines()]
+# PART 1
 
-claim_matcher = '''#{id:d} @ {x:d},{y:d}: {width:d}x{height:d}\n'''
-fabric = np.zeros((1000, 1000), dtype=np.int)
+for line in open("input_d3.txt"):
+    claim = parse.parse(pattern, line)
+    fab[claim['fromLeft']:claim['fromLeft'] + claim['width'], claim['fromTop']:claim['fromTop'] + claim['height']] += 1
 
-print(claim_matcher)
-print(fabric)
+print("Number of squares: " + str(np.sum(fab >= 2)))
+
+# PART 2
+
+for line in open("input_d3.txt"):
+    claim = parse.parse(pattern, line)
+    if(np.all(fab[claim['fromLeft']:claim['fromLeft'] + claim['width'], claim['fromTop']:claim['fromTop'] + claim['height']] == 1)):
+        print("ID: " + str(claim['id']))
