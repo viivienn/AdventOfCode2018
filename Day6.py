@@ -11,14 +11,11 @@ y_max = max(coord, key=lambda k: k[1])[1]
 def man_distance(x, y):
     return abs(x[0] - y[0]) + abs(x[1] - y[1])
 
-
 def is_finite(x, y):
     return x_min < x < x_max and y_min < y < y_max
 
-
 def equal_distance(dist):
     return sorted(dist)[0] == sorted(dist)[1]
-
 
 area = Counter()
 infinite_coord = set()
